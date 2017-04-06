@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">College Days</string>
+
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">SIGUIENTE</string>
+    <string name="skip">SALTAR</string>
+    <string name="start">ENTENDIDO</string>
+
+    <string name="slide_1_title">Te Damos La Bienvenida!</string>
+    <string name="slide_1_desc">La forma más fácil de organizar tus clases y tomar notas!</string>
+
+    <string name="slide_2_title">Registra Tus clases!"</string>
+    <string name="slide_2_desc">Organiza tus clases para que no te pierdas ninguna!</string>
+
+    <string name="slide_3_title">No Olvides Tus Tareas!</string>
+    <string name="slide_3_desc">Registra notas o apuntes para que no olvides ningún detalle!</string>
+
+    <string name="slide_4_title">Productividad</string>
+    <string name="slide_4_desc">Sé más productivo y eficiente!</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
 </resources>
