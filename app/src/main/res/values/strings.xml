@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">College Days</string>
+    <string name="app_name">Kikiritec</string>
 
-    <string name="title_activity_welcome">Home Screen</string>
+    <string name="title_activity_welcome">Kikiritec</string>
     <string name="next">SIGUIENTE</string>
     <string name="skip">SALTAR</string>
     <string name="start">ENTENDIDO</string>
@@ -20,4 +20,7 @@
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
