@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".Activities.WelcomeActivity">
@@ -17,15 +17,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:theme="@style/AppTheme1"
+            android:theme="@style/AppTheme"
             android:name=".Activities.MainActivity"
-            android:label="@string/title_activity_welcome"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="@string/title_activity_welcome">
         </activity>
     </application>
 
