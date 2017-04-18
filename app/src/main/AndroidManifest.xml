@@ -17,10 +17,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:theme="@style/AppTheme"
             android:name=".Activities.MainActivity"
-            android:label="@string/title_activity_welcome">
-        </activity>
+            android:label="@string/title_activity_welcome"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".Activities.RegistroClase"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
