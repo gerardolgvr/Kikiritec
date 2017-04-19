@@ -1,5 +1,6 @@
 package mx.com.collegedays.collegedays.Activities;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private PagerAdapter adapter;
     private FloatingActionButton fab;
+    private String diaSeleccionado = "LUNES";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 //        .setAction("Action", null).show();
-                
+            // DESPLEGAMOS EL ACTIVITY DE REGISTRO
+                Intent intent = new Intent(MainActivity.this, RegistroClase.class );
+                intent.putExtra("esNuevo", true);
+                intent.putExtra("dia", diaSeleccionado);
+                startActivity( intent );
+
             }
         });
     }
@@ -74,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
                 viewPager.setCurrentItem(position);
+                diaSeleccionado = tab.getText().toString();
+
             }
 
             @Override

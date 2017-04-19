@@ -5,9 +5,111 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="mx.com.collegedays.collegedays.Activities.RegistroClase">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/lblDia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Dia"
+        android:textSize="24sp"
+        android:inputType="text|textCapWords"/>
+
+    <EditText
+        android:id="@+id/txtNombreClase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="65dp"
+        android:textSize="20sp"
+        android:hint="Nombre de la clase"
+        android:textAlignment="center"
+        android:inputType="text|textCapWords"/>
+    <EditText
+        android:id="@+id/txtProfesor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textSize="20sp"
+        android:hint="Nombre del profesor"
+        android:textAlignment="center"
+        android:layout_below="@+id/txtNombreClase"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:inputType="text|textCapWords"/>
+    <EditText
+        android:id="@+id/txtAula"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:hint="Aula"
+        android:textAlignment="center"
+        android:layout_below="@+id/txtProfesor"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:inputType="text|textCapWords"/>
+
+    <EditText
+        android:id="@+id/txtHoras"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:hint="Duración de la clase"
+        android:inputType="numberDecimal"
+        android:textAlignment="center"
+        android:layout_below="@+id/txtAula"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/btnSetHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Establecer Hora Inicio"
+        android:textSize="14sp"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/txtHoras"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/txtHora"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textAlignment="center"
+        android:layout_marginBottom="14dp"
+        android:layout_below="@+id/btnSetHora"
+        />
+
+    <Button
+        android:id="@+id/btnCrear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_orange_dark"
+        android:textSize="18sp"
+        android:layout_alignTop="@+id/btnSetHora"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="92dp" />
+    </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
+
 
 </RelativeLayout>

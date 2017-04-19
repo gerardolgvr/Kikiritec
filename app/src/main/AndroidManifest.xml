@@ -21,7 +21,8 @@
             android:label="@string/title_activity_welcome"
             android:theme="@style/AppTheme"></activity>
         <activity android:name=".Activities.RegistroClase"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".Activities.MainActivity"></activity>
     </application>
 
 </manifest>
