@@ -11,7 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import mx.com.collegedays.collegedays.Adapters.PagerAdapter;
+import mx.com.collegedays.collegedays.Models.Nota;
 import mx.com.collegedays.collegedays.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private PagerAdapter adapter;
     private FloatingActionButton fab;
+    public static ArrayList<Nota> notas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         setViewPager();
         setListenerTabLayout(viewPager);
         setFloatingButton();
+
+        notas = new ArrayList<Nota>();
     }
 
 
@@ -62,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
                 Intent intent = new Intent(MainActivity.this, NotasActivity.class);
                 startActivity(intent);
             }
