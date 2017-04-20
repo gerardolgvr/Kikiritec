@@ -11,7 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import mx.com.collegedays.collegedays.Adapters.PagerAdapter;
+import mx.com.collegedays.collegedays.Models.Nota;
 import mx.com.collegedays.collegedays.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,7 +23,11 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private PagerAdapter adapter;
     private FloatingActionButton fab;
+<<<<<<< HEAD
     private String diaSeleccionado = "LUNES";
+=======
+    public static ArrayList<Nota> notas;
+>>>>>>> feature-gerardo
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         setViewPager();
         setListenerTabLayout(viewPager);
         setFloatingButton();
+
+        notas = new ArrayList<Nota>();
     }
 
 
@@ -70,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("esNuevo", true);
                 intent.putExtra("dia", diaSeleccionado);
                 startActivity( intent );
-
             }
         });
     }

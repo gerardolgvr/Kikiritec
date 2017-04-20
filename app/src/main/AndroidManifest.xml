@@ -20,7 +20,14 @@
             android:name=".Activities.MainActivity"
             android:label="@string/title_activity_welcome"
             android:theme="@style/AppTheme"></activity>
-        <activity android:name=".Activities.RegistroClase"
+
+        <activity
+            android:name=".Activities.RegistroClase"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".Activities.MainActivity"></activity>
+
+        <activity
+            android:name=".Activities.NotasActivity"
             android:theme="@style/AppTheme"
             android:parentActivityName=".Activities.MainActivity"></activity>
     </application>
