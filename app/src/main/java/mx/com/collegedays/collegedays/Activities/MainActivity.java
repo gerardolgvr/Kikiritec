@@ -23,11 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private PagerAdapter adapter;
     private FloatingActionButton fab;
-<<<<<<< HEAD
     private String diaSeleccionado = "LUNES";
-=======
     public static ArrayList<Nota> notas;
->>>>>>> feature-gerardo
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +70,16 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                //        .setAction("Action", null).show();
-            // DESPLEGAMOS EL ACTIVITY DE REGISTRO
-                Intent intent = new Intent(MainActivity.this, RegistroClase.class );
-                intent.putExtra("esNuevo", true);
-                intent.putExtra("dia", diaSeleccionado);
-                startActivity( intent );
+                if(diaSeleccionado == "NOTAS"){
+                    Intent intent = new Intent(MainActivity.this, NotasActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(MainActivity.this, RegistroClase.class );
+                    intent.putExtra("esNuevo", true);
+                    intent.putExtra("dia", diaSeleccionado);
+                    startActivity( intent );
+                }
+
             }
         });
     }
