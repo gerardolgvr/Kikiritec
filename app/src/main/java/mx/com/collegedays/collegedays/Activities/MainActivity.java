@@ -1,43 +1,55 @@
 package mx.com.collegedays.collegedays.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.AdapterView;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import mx.com.collegedays.collegedays.Adapters.PagerAdapter;
+import mx.com.collegedays.collegedays.Fragments.NotasFragment;
 import mx.com.collegedays.collegedays.Models.Nota;
 import mx.com.collegedays.collegedays.R;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Realm realm;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private PagerAdapter adapter;
     private FloatingActionButton fab;
     private String diaSeleccionado = "LUNES";
-    public static ArrayList<Nota> notas;
+    private RealmResults<Nota> notas;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        realm = Realm.getDefaultInstance();
+        notas = realm.where(Nota.class).findAll();
+
         setToolbar();
         setTabLayout();
         setViewPager();
         setListenerTabLayout(viewPager);
         setFloatingButton();
-
-        notas = new ArrayList<Nota>();
     }
 
 
@@ -105,4 +117,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.deletaAllNotas:
+                realm.beginTransaction();
+                realm.deleteAll();
+                NotasFragment.updateFragmentNotas();
+                realm.commitTransaction();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 }

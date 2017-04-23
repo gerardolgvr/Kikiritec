@@ -8,18 +8,29 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+import mx.com.collegedays.collegedays.Fragments.NotasFragment;
 import mx.com.collegedays.collegedays.Models.Nota;
 import mx.com.collegedays.collegedays.R;
 
-import static mx.com.collegedays.collegedays.Activities.MainActivity.notas;
 
 public class NotasActivity extends AppCompatActivity {
+
+    private Realm realm;
+    RealmResults<Nota> notas;
+
 
     private EditText txtTitle;
     private EditText txtNote;
     private Button btnAddNote;
+
+    private int NotaID;
+    private Nota nota;
+    boolean editada = false;
+
+
 
 
     @Override
@@ -27,15 +38,29 @@ public class NotasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notas);
 
+        //Db
+        realm = Realm.getDefaultInstance();
+        notas = realm.where(Nota.class).findAll();
+
+
         setToolbar();
         setUI();
+
+        /*if(getIntent().getExtras() != null){
+            notaID = getIntent().getExtras().getInt("id");
+            nota = realm.where(Nota.class).equalTo("id", notaID).findFirst();
+            setData(nota);
+            editada = true;
+        }*/
+
+
+
     }
 
     public void setToolbar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayShowTitleEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void setUI(){
@@ -47,11 +72,8 @@ public class NotasActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(notaValida()){
-
-                    Nota nota = new Nota(txtTitle.getText().toString(), txtNote.getText().toString());
-                    notas.add(nota);
-                    String hora = nota.getHoraCreacion();
-                    Toast.makeText(NotasActivity.this, "Nota Guardada "+notas.size()+ " "+hora+ " "+nota.getFechaCreacion(), Toast.LENGTH_SHORT).show();
+                    createNewNota();
+                    Toast.makeText(NotasActivity.this, "Nota Guardada ", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
                     Toast.makeText(NotasActivity.this, "Agrega un título", Toast.LENGTH_SHORT).show();
@@ -70,4 +92,26 @@ public class NotasActivity extends AppCompatActivity {
             return true;
         }
     }
+
+    //** CRUD Actions **//
+    public void createNewNota(){
+        realm.beginTransaction();
+        Nota nota = new Nota(txtTitle.getText().toString(), txtNote.getText().toString());
+        realm.copyToRealm(nota);
+        realm.commitTransaction();
+        NotasFragment.updateFragmentNotas();
+    }
+
+    /*
+    public void setData(Nota nota){
+        txtTitle.setText(nota.getTituloDeNota());
+        txtNote.setText(nota.getContenido());
+    }
+
+    public void editingNota(Nota nota){
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(nota);
+        realm.commitTransaction();
+        NotasFragment.updateFragmentNotas();
+    }*/
 }
