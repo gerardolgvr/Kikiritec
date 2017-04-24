@@ -8,6 +8,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
+import mx.com.collegedays.collegedays.Models.Clase;
 import mx.com.collegedays.collegedays.Models.Nota;
 
 /**
@@ -16,6 +17,7 @@ import mx.com.collegedays.collegedays.Models.Nota;
 
 public class App extends Application {
     public static AtomicInteger NotaID = new AtomicInteger();
+    public static AtomicInteger ClaseID = new AtomicInteger();
 
     @Override
     public void onCreate(){
@@ -24,6 +26,7 @@ public class App extends Application {
 
         Realm realm = Realm.getDefaultInstance();
         NotaID = getIdByTable(realm, Nota.class);
+        ClaseID = getIdByTable(realm, Clase.class);
         realm.close();
     }
 

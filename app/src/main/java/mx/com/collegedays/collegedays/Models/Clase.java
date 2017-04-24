@@ -1,20 +1,42 @@
 package mx.com.collegedays.collegedays.Models;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
+import mx.com.collegedays.collegedays.App.App;
+
 /**
  * Created by augusto on 23/04/17.
  */
 
-public class Clase {
+public class Clase extends RealmObject{
 
+    @PrimaryKey
+    private int id;
+    @Required
     private String nombreDeClase;
-    private String horaInicio;
     private String profesor;
     private String aula;
+    @Required
+    private String duracion;
+    @Required
+    private String horaClase;
     private String dia;
 
 
-    public Clase(){
 
+    public Clase(){
+        //Required for Realm
+    }
+
+    public Clase(String nombreDeClase, String profesor, String aula, String duracion, String horaClase, String dia){
+        this.id = App.ClaseID.incrementAndGet();
+        this.nombreDeClase = nombreDeClase;
+        this.profesor = profesor;
+        this.aula = aula;
+        this.duracion = duracion;
+        this.horaClase = horaClase;
+        this.dia = dia;
     }
 
     public String getNombreDeClase() {
@@ -25,12 +47,12 @@ public class Clase {
         this.nombreDeClase = nombreDeClase;
     }
 
-    public String getHoraInicio() {
-        return horaInicio;
+    public String getHoraClase() {
+        return horaClase;
     }
 
-    public void setHoraInicio(String horaInicio) {
-        this.horaInicio = horaInicio;
+    public void setHoraClase(String horaInicio) {
+        this.horaClase = horaInicio;
     }
 
     public String getProfesor() {
@@ -55,5 +77,13 @@ public class Clase {
 
     public void setDia(String dia) {
         this.dia = dia;
+    }
+
+    public String getDuracion() {
+        return duracion;
+    }
+
+    public void setDuracion(String duracion) {
+        this.duracion = duracion;
     }
 }
