@@ -26,7 +26,7 @@ public class NotasActivity extends AppCompatActivity {
     private EditText txtNote;
     private Button btnAddNote;
 
-    private int NotaID;
+    private int notaID;
     private Nota nota;
     boolean editada = false;
 
@@ -46,14 +46,12 @@ public class NotasActivity extends AppCompatActivity {
         setToolbar();
         setUI();
 
-        /*if(getIntent().getExtras() != null){
+        if(getIntent().getExtras() != null){
             notaID = getIntent().getExtras().getInt("id");
             nota = realm.where(Nota.class).equalTo("id", notaID).findFirst();
             setData(nota);
             editada = true;
-        }*/
-
-
+        }
 
     }
 
@@ -72,8 +70,13 @@ public class NotasActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(notaValida()){
-                    createNewNota();
-                    Toast.makeText(NotasActivity.this, "Nota Guardada ", Toast.LENGTH_SHORT).show();
+                    if(editada){
+                        editingNota(nota);
+                        Toast.makeText(NotasActivity.this, "Editada", Toast.LENGTH_SHORT).show();
+                    } else {
+                        createNewNota();
+                        Toast.makeText(NotasActivity.this, "Nota Guardada ", Toast.LENGTH_SHORT).show();
+                    }
                     finish();
                 } else {
                     Toast.makeText(NotasActivity.this, "Agrega un título", Toast.LENGTH_SHORT).show();
@@ -102,7 +105,7 @@ public class NotasActivity extends AppCompatActivity {
         NotasFragment.updateFragmentNotas();
     }
 
-    /*
+
     public void setData(Nota nota){
         txtTitle.setText(nota.getTituloDeNota());
         txtNote.setText(nota.getContenido());
@@ -110,8 +113,10 @@ public class NotasActivity extends AppCompatActivity {
 
     public void editingNota(Nota nota){
         realm.beginTransaction();
+        nota.setTituloDeNota(txtTitle.getText().toString());
+        nota.setContenido(txtNote.getText().toString());
         realm.copyToRealmOrUpdate(nota);
         realm.commitTransaction();
         NotasFragment.updateFragmentNotas();
-    }*/
+    }
 }

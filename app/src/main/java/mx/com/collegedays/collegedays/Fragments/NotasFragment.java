@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +64,8 @@ public class NotasFragment extends Fragment implements RealmChangeListener<Realm
 
         //escuchador de eventos cuando hacemos click a un item del list view (Por terminar, parte del editar o solo ver)
         listView.setOnItemClickListener(this);
-
+        registerForContextMenu(listView);
+        updateFragmentNotas();
         return view;
     }
 
@@ -100,13 +103,11 @@ public class NotasFragment extends Fragment implements RealmChangeListener<Realm
         startActivity(intent);
     }
 
-    /*
-    Menu contextual
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        menu.setHeaderTitle(notas.get(info.position).getTituloDeNota());
-        getMenuInflater().inflate(R.menu.context_menu_main_activity, menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add(Menu.NONE, R.id.editNote, Menu.NONE, "Editar Nota");
+        menu.add(Menu.NONE, R.id.deleteNote, Menu.NONE, "Borrar Nota");
     }
 
     @Override
@@ -114,12 +115,23 @@ public class NotasFragment extends Fragment implements RealmChangeListener<Realm
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()){
             case R.id.deleteNote:
+                deleteNota(notas.get(info.position));
+                Toast.makeText(getActivity(), "Nota Borrrada", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.editNote:
-                deleteNota(notas.get(info.position));
+                Intent intent = new Intent(getActivity(), NotasActivity.class);
+                intent.putExtra("id", notas.get(info.position).getId());
+                startActivity(intent);
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
-    }*/
+    }
+
+    private void deleteNota(Nota nota){
+        realm.beginTransaction();
+        nota.deleteFromRealm();
+        realm.commitTransaction();
+        updateFragmentNotas();
+    }
 }
