@@ -10,4 +10,14 @@
         android:title="Borrar Nota"
         />
 
+    <item
+        android:id="@+id/editClass"
+        android:title="Editar Clase"
+        />
+
+    <item
+        android:id="@+id/deleteClass"
+        android:title="Borrar Clase"
+        />
+
 </menu>
