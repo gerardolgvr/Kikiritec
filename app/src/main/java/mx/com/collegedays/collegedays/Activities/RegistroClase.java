@@ -13,7 +13,13 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+import mx.com.collegedays.collegedays.Fragments.NotasFragment;
+import mx.com.collegedays.collegedays.Models.Clase;
 import mx.com.collegedays.collegedays.R;
+
+
 import java.util.Calendar;
 
 public class RegistroClase extends AppCompatActivity implements View.OnClickListener {
@@ -28,20 +34,17 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
     private TextView txtHora;
     private Button btnSetHora;
 
+    //Para persistencia de datos
+    private Realm realm;
+    RealmResults<Clase> clases;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_clase);
 
-        lblDia = (TextView) findViewById( R.id.lblDia);
-        txtClase = (EditText) findViewById( R.id.txtNombreClase);
-        txtProfesor = (EditText) findViewById( R.id.txtProfesor);
-        txtAula = (EditText) findViewById( R.id.txtAula );
-        txtHorasDeClase = (EditText) findViewById( R.id.txtHoras );
-        btnSetHora = (Button) findViewById( R.id.btnSetHora );
-        txtHora = (TextView) findViewById( R.id.txtHora );
-        btnCrear = (Button) findViewById( R.id.btnCrear );
 
+        setUI();
         // Tomamos los datos del intent
         Bundle data = getIntent().getExtras();
 
@@ -76,6 +79,40 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
         btnSetHora.setOnClickListener( this );
     }
 
+    public void setUI(){
+        lblDia = (TextView) findViewById( R.id.lblDia);
+        txtClase = (EditText) findViewById( R.id.txtNombreClase);
+        txtProfesor = (EditText) findViewById( R.id.txtProfesor);
+        txtAula = (EditText) findViewById( R.id.txtAula );
+        txtHorasDeClase = (EditText) findViewById( R.id.txtHoras );
+        btnSetHora = (Button) findViewById( R.id.btnSetHora );
+        txtHora = (TextView) findViewById( R.id.txtHora );
+        btnCrear = (Button) findViewById( R.id.btnCrear );
+
+        btnCrear.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if( esNuevo ){
+                            createNewClase();
+                        }
+                        else{
+                            //COMPLETAR CON CÓDIGO
+                        }
+                    }
+                }
+        );
+    }
+    public void createNewClase(){
+        realm.beginTransaction();
+        Clase clase = new Clase(txtClase.getText().toString(),txtProfesor.getText().toString(),
+                txtAula.getText().toString(),txtHorasDeClase.getText().toString(),
+                txtHorasDeClase.getText().toString(),dia);
+
+        realm.copyToRealm( clase );
+        realm.commitTransaction();
+        //NotasFragment.updateFragmentNotas();
+    }
 
     @Override
     public void onClick(View v) {
