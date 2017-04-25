@@ -67,7 +67,7 @@ public class ClaseAdapter extends BaseAdapter{
         Clase clase = clases.get(position);
 
         vh.nombreClase.setText(clase.getNombreDeClase());
-        vh.horaClase.setText(clase.getHoraInicio());
+        vh.horaClase.setText(clase.getHoraClase());
         vh.duracion.setText(clase.getDuracion());
 
         return convertView;
