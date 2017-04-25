@@ -20,14 +20,8 @@ import mx.com.collegedays.collegedays.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DFragment extends Fragment implements RealmChangeListener<RealmResults<Clase>>, AdapterView.OnItemClickListener {
-    private static Realm realm;
+public class DFragment extends Fragment {
 
-    private static TextView noClases;
-    private ListView listView;
-    private static ClaseAdapter adapter;
-
-    static RealmResults<Clase> clases;
     public DFragment() {
         // Required empty public constructor
     }
@@ -42,13 +36,4 @@ public class DFragment extends Fragment implements RealmChangeListener<RealmResu
         return view;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-    }
-
-    @Override
-    public void onChange(RealmResults<Clase> element) {
-
-    }
 }
