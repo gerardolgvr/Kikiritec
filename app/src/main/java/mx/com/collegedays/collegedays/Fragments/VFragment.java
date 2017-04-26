@@ -18,6 +18,7 @@ import android.widget.Toast;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import mx.com.collegedays.collegedays.Activities.NotasActivity;
 import mx.com.collegedays.collegedays.Activities.RegistroClase;
 import mx.com.collegedays.collegedays.Adapters.ClaseAdapter;
@@ -50,8 +51,8 @@ public class VFragment extends Fragment implements RealmChangeListener<RealmResu
 
         //Db
         realm = Realm.getDefaultInstance();
-        clases = realm.where(Clase.class).findAll();
-
+        clases  = realm.where(Clase.class).equalTo("dia", "VIERNES").findAll();
+        clases = clases.sort("horaClase", Sort.ASCENDING);
         //Creamos nuestro adaptador personalizado
         adapter = new ClaseAdapter(getActivity(), clases, R.layout.list_view_clase_item);
         //Creamos listView

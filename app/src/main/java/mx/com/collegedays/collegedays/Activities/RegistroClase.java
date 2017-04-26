@@ -89,7 +89,7 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
 
         setSupportActionBar( toolbar );
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+        //getSupportActionBar().setDisplayHomeAsUpEnabled( true );
     }
 
 
@@ -113,15 +113,16 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if( claseVaida() ) {
+                        if( claseValida() ) {
                             if (esNuevo) {
                                 createNewClase();
-                                Toast.makeText(RegistroClase.this, "Clase Guardad", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegistroClase.this, "Clase Guardada", Toast.LENGTH_SHORT).show();
                             } else {
 
                                 editingClase( clase );
                                 Toast.makeText(RegistroClase.this, "Editada", Toast.LENGTH_SHORT).show();
                             }
+                            finish();
                         }
                     }
                 }
@@ -129,14 +130,12 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
     }
     public void createNewClase(){
         realm.beginTransaction();
-
-        Clase clase = new Clase( txtClase.getText().toString(),txtProfesor.getText().toString(),
+         Clase clase = new Clase( txtClase.getText().toString(),txtProfesor.getText().toString(),
                 txtAula.getText().toString(),txtHorasDeClase.getText().toString(),
                 txtHora.getText().toString(),dia);
 
         realm.copyToRealm( clase );
         realm.commitTransaction();
-        //NotasFragment.updateFragmentNotas();
         updateCorrectDayFragment();
     }
 
@@ -190,7 +189,7 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
         d.show();
     }
 
-    public boolean claseVaida(){
+    public boolean claseValida(){
         if(
             txtClase.getText().toString().compareTo("")==0 &&
             txtProfesor.getText().toString().compareTo("")==0 &&
