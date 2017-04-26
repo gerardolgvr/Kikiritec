@@ -5,12 +5,17 @@
     tools:context="mx.com.collegedays.collegedays.Fragments.VFragment">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewViernes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Viernes"
         />
+
+    <ListView
+        android:id="@+id/listViewViernes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

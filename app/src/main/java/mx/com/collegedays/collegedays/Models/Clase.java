@@ -38,6 +38,13 @@ public class Clase extends RealmObject{
         this.horaClase = horaClase;
         this.dia = dia;
     }
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public int getId(){
+        return this.id;
+    }
 
     public String getNombreDeClase() {
         return nombreDeClase;
