@@ -35,7 +35,7 @@ public class ClaseAdapter extends BaseAdapter{
     }
 
     @Override
-    public Object getItem(int position) {
+    public Clase getItem(int position) {
         return clases.get(position);
     }
 
@@ -54,9 +54,9 @@ public class ClaseAdapter extends BaseAdapter{
 
             vh = new ViewHolder();
 
-            vh.nombreClase = (TextView) convertView.findViewById(R.id.txtNombreClase);
-            vh.horaClase = (TextView) convertView.findViewById(R.id.txtHora);
-            vh.duracion = (TextView) convertView.findViewById(R.id.txtHoras) ;
+            vh.nombreClase = (TextView) convertView.findViewById(R.id.textViewClaseNombre);
+            vh.horaClase = (TextView) convertView.findViewById(R.id.textViewClaseHora);
+            vh.duracion = (TextView) convertView.findViewById(R.id.textViewClaseDuracion) ;
 
 
             convertView.setTag(vh);
