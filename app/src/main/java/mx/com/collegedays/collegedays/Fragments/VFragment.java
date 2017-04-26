@@ -79,7 +79,7 @@ public class VFragment extends Fragment implements RealmChangeListener<RealmResu
         //Db
         realm = Realm.getDefaultInstance();
         //consulta que devuelve todas las clases de la bd
-        clases  = realm.where(Clase.class).findAll();
+        clases  = realm.where(Clase.class).equalTo("dia", "VIERNES").findAll();
         //cuestion del textview que dice notas
         if(clases.size() > 0){
             //si hay notas guardadas lo hacemos invisible

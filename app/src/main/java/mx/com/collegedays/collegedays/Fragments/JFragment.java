@@ -23,9 +23,7 @@ import mx.com.collegedays.collegedays.Models.Clase;
 import mx.com.collegedays.collegedays.R;
 import io.realm.Realm;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class JFragment extends Fragment implements RealmChangeListener<RealmResults<Clase>>, AdapterView.OnItemClickListener {
 
     private static Realm realm;
@@ -51,7 +49,7 @@ public class JFragment extends Fragment implements RealmChangeListener<RealmResu
 
         //Db
         realm = Realm.getDefaultInstance();
-        clases = realm.where(Clase.class).findAll();
+        clases = realm.where(Clase.class).equalTo("dia", "JUEVES").findAll();
 
         //Creamos adaptador personalizado
         adapter = new ClaseAdapter( getActivity(), clases, R.layout.list_view_clase_item);

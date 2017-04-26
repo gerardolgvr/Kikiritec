@@ -53,7 +53,7 @@ public class DFragment extends Fragment implements RealmChangeListener<RealmResu
 
         //Db
         realm = Realm.getDefaultInstance();
-        clases = realm.where(Clase.class).findAll();
+        clases = realm.where(Clase.class).equalTo("dia", "DOMINGO").findAll();
 
         //Creamos nuestro adaptador personalizado
         adapter = new ClaseAdapter(getActivity(), clases, R.layout.list_view_clase_item);
