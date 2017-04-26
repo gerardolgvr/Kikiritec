@@ -36,7 +36,7 @@ public class NotaAdapter extends BaseAdapter{
     }
 
     @Override
-    public Object getItem(int position) {
+    public Nota getItem(int position) {
         return notas.get(position);
     }
 
