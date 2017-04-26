@@ -15,6 +15,7 @@ import java.util.Calendar;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+import mx.com.collegedays.collegedays.Fragments.*;
 import mx.com.collegedays.collegedays.Fragments.NotasFragment;
 import mx.com.collegedays.collegedays.Models.Clase;
 import mx.com.collegedays.collegedays.R;
@@ -23,6 +24,7 @@ import mx.com.collegedays.collegedays.R;
 import java.util.Calendar;
 
 public class RegistroClase extends AppCompatActivity implements View.OnClickListener {
+
     private boolean esNuevo;
     private String  dia;
     private TextView lblDia;
@@ -33,10 +35,12 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
     private TextView txtHorasDeClase;
     private TextView txtHora;
     private Button btnSetHora;
-
+    private int claseID;
     //Para persistencia de datos
     private Realm realm;
     RealmResults<Clase> clases;
+    private Clase clase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +48,25 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_registro_clase);
 
 
+        realm = Realm.getDefaultInstance();
+        clases = realm.where(Clase.class).findAll();
+
         setUI();
         // Tomamos los datos del intent
         Bundle data = getIntent().getExtras();
 
         this.dia = data.getString("dia");
         this.esNuevo = data.getBoolean("esNuevo");
-
-
-
         lblDia.setText( dia );
         btnCrear.setText( (esNuevo)? "Registrar clase" : "Actualizar datos" );
+
+
+        if(!esNuevo) {
+            claseID = data.getInt("id");
+            clase = realm.where(Clase.class).equalTo("id", claseID).findFirst();
+            setData( clase );
+
+        }
 
         setBtnSetHoraOnClickListenner();
         setToolbar();
@@ -64,6 +76,14 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
 
     }
 
+    public void setData( Clase clase){
+        txtClase.setText( clase.getNombreDeClase() );
+        txtProfesor.setText( clase.getProfesor() );
+        txtAula.setText( clase.getAula()  );
+        txtHorasDeClase.setText( clase.getDuracion() );
+        txtHora.setText( clase.getHoraClase() );
+
+    }
     private void setToolbar(){
         Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
 
@@ -93,11 +113,12 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if( esNuevo ){
-                            createNewClase();
-                        }
-                        else{
-                            //COMPLETAR CON CÓDIGO
+                        if( claseVaida() ) {
+                            if (esNuevo) {
+                                createNewClase();
+                            } else {
+                                //COMPLETAR CON CÓDIGO
+                            }
                         }
                     }
                 }
@@ -105,13 +126,41 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
     }
     public void createNewClase(){
         realm.beginTransaction();
-        Clase clase = new Clase(txtClase.getText().toString(),txtProfesor.getText().toString(),
+
+        Clase clase = new Clase( txtClase.getText().toString(),txtProfesor.getText().toString(),
                 txtAula.getText().toString(),txtHorasDeClase.getText().toString(),
-                txtHorasDeClase.getText().toString(),dia);
+                txtHora.getText().toString(),dia);
 
         realm.copyToRealm( clase );
         realm.commitTransaction();
         //NotasFragment.updateFragmentNotas();
+        updateCorrectDayFragment();
+    }
+
+    private void updateCorrectDayFragment() {
+        switch ( dia.toLowerCase() ){
+            case "domingo":
+                DFragment.updateFragmentDomingo();
+                break;
+            case "lunes":
+                LFragment.updateFragmentLunes();
+                break;
+            case "martes":
+                MarFragment.updateFragmentMartes();
+                break;
+            case "miercoles":
+                MFragment.updateFragmentMiercoles();
+                break;
+            case "jueves":
+                JFragment.updateFragmentJueves();
+                break;
+            case "viernes":
+                VFragment.updateFragmentViernes();
+                break;
+            case "sabado":
+                SFragment.updateFragmentSabado();
+                break;
+        }
     }
 
     @Override
@@ -137,4 +186,20 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
         d.setTitle( "Hora de la clase");
         d.show();
     }
+
+    public boolean claseVaida(){
+        if(
+            txtClase.getText().toString().compareTo("")==0 &&
+            txtProfesor.getText().toString().compareTo("")==0 &&
+            txtAula.getText().toString().compareTo("")==0 &&
+            txtHorasDeClase.getText().toString().compareTo("")==0 &&
+            txtHora.getText().toString().compareTo("")==0
+        ){
+            return false;
+        }
+
+        return true;
+    }
+
+
 }

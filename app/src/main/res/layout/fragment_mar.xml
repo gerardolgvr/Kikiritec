@@ -5,11 +5,17 @@
     tools:context="mx.com.collegedays.collegedays.Fragments.MarFragment">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewMartes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Martes"
         />
+
+    <ListView
+        android:id="@+id/listViewMartes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>

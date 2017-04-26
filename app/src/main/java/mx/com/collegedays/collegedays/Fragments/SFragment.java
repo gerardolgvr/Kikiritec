@@ -92,6 +92,8 @@ public class SFragment extends Fragment implements RealmChangeListener<RealmResu
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getActivity(), RegistroClase.class);
+        intent.putExtra("esNuevo", false);
+        intent.putExtra("dia", dia.getText().toString());
         intent.putExtra("id", clases.get(position).getId());
         startActivity(intent);
     }

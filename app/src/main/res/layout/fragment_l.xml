@@ -6,12 +6,18 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textViewLunes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Lunes"
         />
+
+    <ListView
+        android:id="@+id/listViewLunes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 </RelativeLayout>
