@@ -116,8 +116,11 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
                         if( claseVaida() ) {
                             if (esNuevo) {
                                 createNewClase();
+                                Toast.makeText(RegistroClase.this, "Clase Guardad", Toast.LENGTH_SHORT).show();
                             } else {
-                                //COMPLETAR CON CÓDIGO
+
+                                editingClase( clase );
+                                Toast.makeText(RegistroClase.this, "Editada", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -199,6 +202,19 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
         }
 
         return true;
+    }
+
+    public void editingClase( Clase clase){
+        realm.beginTransaction();
+        clase.setNombreDeClase(txtClase.getText().toString());
+        clase.setProfesor( txtProfesor.getText().toString() );
+        clase.setAula( txtAula.getText().toString() );
+        clase.setDuracion( txtHorasDeClase.getText().toString() );
+        clase.setHoraClase( txtHora.getText().toString() );
+        clase.setDia( dia );
+        realm.copyToRealmOrUpdate(clase);
+        realm.commitTransaction();
+        updateCorrectDayFragment();
     }
 
 

@@ -119,6 +119,8 @@ public class DFragment extends Fragment implements RealmChangeListener<RealmResu
                 return true;
             case R.id.editClass:
                 Intent intent = new Intent(getActivity(), RegistroClase.class);
+                intent.putExtra("esNuevo", false);
+                intent.putExtra("dia", dia.getText().toString());
                 intent.putExtra("id", clases.get(info.position).getId());
                 startActivity(intent);
                 return true;
