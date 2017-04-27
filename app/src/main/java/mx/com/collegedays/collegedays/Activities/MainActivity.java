@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         setTabLayout();
         setViewPager();
         setListenerTabLayout(viewPager);
-        setFloatingButton();
     }
 
 
@@ -75,25 +74,6 @@ public class MainActivity extends AppCompatActivity {
         adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-    }
-
-    public void setFloatingButton(){
-        fab = (FloatingActionButton) findViewById(R.id.fab_add);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(diaSeleccionado == "NOTAS"){
-                    Intent intent = new Intent(MainActivity.this, NotasActivity.class);
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(MainActivity.this, RegistroClase.class );
-                    intent.putExtra("esNuevo", true);
-                    intent.putExtra("dia", diaSeleccionado);
-                    startActivity( intent );
-                }
-
-            }
-        });
     }
 
     private void setListenerTabLayout(final ViewPager viewPager){

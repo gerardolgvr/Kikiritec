@@ -3,6 +3,7 @@ package mx.com.collegedays.collegedays.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ public class DFragment extends Fragment implements RealmChangeListener<RealmResu
     private static Realm realm;
 
     private static TextView dia;
+    private FloatingActionButton fab;
     private ListView listView;
     private static ClaseAdapter adapter;
 
@@ -51,6 +53,16 @@ public class DFragment extends Fragment implements RealmChangeListener<RealmResu
         View view = inflater.inflate(R.layout.fragment_d, container, false);
 
         dia = (TextView) view.findViewById(R.id.textViewDomingo);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab_add_domingo);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), RegistroClase.class );
+                intent.putExtra("esNuevo", true);
+                intent.putExtra("dia", dia.getText().toString().toUpperCase());
+                startActivity( intent );
+            }
+        });
 
         //Db
         realm = Realm.getDefaultInstance();

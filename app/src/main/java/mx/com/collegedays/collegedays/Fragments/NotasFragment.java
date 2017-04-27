@@ -4,6 +4,7 @@ package mx.com.collegedays.collegedays.Fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ public class NotasFragment extends Fragment implements RealmChangeListener<Realm
     private static Realm realm;
 
     private static TextView noNotas;
+    private FloatingActionButton fab;
     private ListView listView;
     private static NotaAdapter adapter;
 
@@ -50,6 +52,14 @@ public class NotasFragment extends Fragment implements RealmChangeListener<Realm
         View view = inflater.inflate(R.layout.fragment_notas, container, false);
 
         noNotas = (TextView) view.findViewById(R.id.hayNotas);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab_add_notas);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), NotasActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Db
         realm = Realm.getDefaultInstance();
