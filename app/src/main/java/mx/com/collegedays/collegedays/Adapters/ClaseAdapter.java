@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import io.realm.RealmResults;
 import mx.com.collegedays.collegedays.Models.Clase;
 import mx.com.collegedays.collegedays.R;
 
@@ -78,5 +79,10 @@ public class ClaseAdapter extends BaseAdapter{
         TextView horaClase;
         TextView duracion;
 
+    }
+
+    public void setData(RealmResults<Clase> clases) {
+        this.clases = clases;
+        notifyDataSetChanged();
     }
 }

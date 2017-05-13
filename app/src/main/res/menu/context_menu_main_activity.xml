@@ -10,6 +10,8 @@
         android:title="Borrar Nota"
         />
 
+
+    <!--Lunes -->
     <item
         android:id="@+id/editClass"
         android:title="Editar Clase"
@@ -17,6 +19,73 @@
 
     <item
         android:id="@+id/deleteClass"
+        android:title="Borrar Clase"
+        />
+
+
+    <!--Martes -->
+    <item
+        android:id="@+id/editClassMar"
+        android:title="Editar Clase"
+        />
+
+    <item
+        android:id="@+id/deleteClassMar"
+        android:title="Borrar Clase"
+        />
+
+    <!--Miercoles -->
+    <item
+        android:id="@+id/editClassM"
+        android:title="Editar Clase"
+        />
+
+    <item
+        android:id="@+id/deleteClassM"
+        android:title="Borrar Clase"
+        />
+
+    <!--Jueves -->
+    <item
+        android:id="@+id/editClassJ"
+        android:title="Editar Clase"
+        />
+
+    <item
+        android:id="@+id/deleteClassJ"
+        android:title="Borrar Clase"
+        />
+
+    <!--Viernes -->
+    <item
+        android:id="@+id/editClassV"
+        android:title="Editar Clase"
+        />
+
+    <item
+        android:id="@+id/deleteClassV"
+        android:title="Borrar Clase"
+        />
+
+    <!--Sabado -->
+    <item
+        android:id="@+id/editClassS"
+        android:title="Editar Clase"
+        />
+
+    <item
+        android:id="@+id/deleteClassS"
+        android:title="Borrar Clase"
+        />
+
+    <!--Domingo -->
+    <item
+        android:id="@+id/editClassD"
+        android:title="Editar Clase"
+        />
+
+    <item
+        android:id="@+id/deleteClassD"
         android:title="Borrar Clase"
         />
 

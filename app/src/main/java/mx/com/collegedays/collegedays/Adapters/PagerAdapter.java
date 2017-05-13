@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import mx.com.collegedays.collegedays.Fragments.ClasesFragment;
 import mx.com.collegedays.collegedays.Fragments.DFragment;
 import mx.com.collegedays.collegedays.Fragments.JFragment;
 import mx.com.collegedays.collegedays.Fragments.LFragment;

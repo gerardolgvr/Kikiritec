@@ -6,9 +6,6 @@
     android:layout_height="match_parent"
     tools:context="mx.com.collegedays.collegedays.Activities.MainActivity">
 
-
-
-
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
@@ -17,15 +14,14 @@
         layout="@layout/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        />
+        android:layout_below="@id/toolbar"/>
 
     <include
         android:id="@+id/viewPager"
         layout="@layout/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tabLayout"
-        />
+        android:layout_below="@id/tabLayout"/>
+
 
 </RelativeLayout>

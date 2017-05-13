@@ -35,7 +35,7 @@ public class LFragment extends Fragment implements RealmChangeListener<RealmResu
     private ListView listView;
     private static ClaseAdapter adapter;
 
-    static RealmResults<Clase> clases;
+    private static RealmResults<Clase> clases;
 
     public LFragment() {
         // Required empty public constructor
@@ -61,9 +61,7 @@ public class LFragment extends Fragment implements RealmChangeListener<RealmResu
         });
 
         //Db
-        realm = Realm.getDefaultInstance();
-        clases = realm.where(Clase.class).equalTo("dia", "LUNES").findAll();
-        clases = clases.sort("horaClase", Sort.ASCENDING);
+        queryToDatabase();
 
         //Creamos adaptador personalizado
         adapter = new ClaseAdapter( getActivity(), clases, R.layout.list_view_clase_item);
@@ -74,11 +72,17 @@ public class LFragment extends Fragment implements RealmChangeListener<RealmResu
 
         //escuchador de eventos cuando hacemos clic a un item
         listView.setOnItemClickListener( this );
+        clases.addChangeListener(this);
         registerForContextMenu(listView);
-        updateFragmentLunes();
-
-
+        update();
         return view;
+    }
+
+    public void queryToDatabase(){
+        //Db
+        realm = Realm.getDefaultInstance();
+        clases = realm.where(Clase.class).equalTo("dia", "LUNES").findAll();
+        clases = clases.sort("horaClase", Sort.ASCENDING);
     }
 
 
@@ -86,13 +90,23 @@ public class LFragment extends Fragment implements RealmChangeListener<RealmResu
         if( adapter != null){
             adapter.notifyDataSetChanged();
         }
-
-
         //Db
         realm = Realm.getDefaultInstance();
         //consulta que devuelve todas las clases de la bd
         clases = realm.where(Clase.class).equalTo("dia", "LUNES").findAll();
+        clases = clases.sort("horaClase", Sort.ASCENDING);
+        adapter.setData(clases);
         //cuestion del textview que dice notas
+        if(clases.size() > 0){
+            //si hay notas guardadas lo hacemos invisible
+            dia.setVisibility(View.INVISIBLE);
+        } else {
+            //de lo contrario seguimos mostrando el textview con el mensaje
+            dia.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void update(){
         if(clases.size() > 0){
             //si hay notas guardadas lo hacemos invisible
             dia.setVisibility(View.INVISIBLE);
@@ -112,9 +126,10 @@ public class LFragment extends Fragment implements RealmChangeListener<RealmResu
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        queryToDatabase();
         Intent intent = new Intent(getActivity(), RegistroClase.class);
         intent.putExtra("esNuevo", false);
-        intent.putExtra("dia", dia.getText().toString());
+        intent.putExtra("dia", dia.getText().toString().toUpperCase());
         intent.putExtra("id", clases.get(position).getId());
         startActivity(intent);
     }
@@ -129,6 +144,7 @@ public class LFragment extends Fragment implements RealmChangeListener<RealmResu
     @Override
     public boolean onContextItemSelected(MenuItem item){
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        queryToDatabase();
         switch (item.getItemId()){
             case R.id.deleteClass:
                 deleteClase(clases.get(info.position));
@@ -137,7 +153,7 @@ public class LFragment extends Fragment implements RealmChangeListener<RealmResu
             case R.id.editClass:
                 Intent intent = new Intent(getActivity(), RegistroClase.class);
                 intent.putExtra("esNuevo", false);
-                intent.putExtra("dia", dia.getText().toString());
+                intent.putExtra("dia", dia.getText().toString().toUpperCase());
                 intent.putExtra("id", clases.get(info.position).getId());
                 startActivity(intent);
                 return true;
@@ -151,6 +167,13 @@ public class LFragment extends Fragment implements RealmChangeListener<RealmResu
         clase.deleteFromRealm();
         realm.commitTransaction();
         updateFragmentLunes();
+    }
+
+    @Override
+    public void onDestroyView(){
+        realm.removeAllChangeListeners();
+        realm.close();
+        super.onDestroyView();
     }
 
 }

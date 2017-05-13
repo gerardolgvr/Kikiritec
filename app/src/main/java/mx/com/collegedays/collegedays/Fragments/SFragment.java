@@ -35,7 +35,7 @@ public class SFragment extends Fragment implements RealmChangeListener<RealmResu
     private ListView listView;
     private static ClaseAdapter adapter;
 
-    static RealmResults<Clase> clases;
+    private static RealmResults<Clase> clases;
 
     public SFragment() {
         // Required empty public constructor
@@ -48,7 +48,7 @@ public class SFragment extends Fragment implements RealmChangeListener<RealmResu
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_s, container, false);
 
-        dia = (TextView) view.findViewById(R.id.textViewSabado);
+        dia = (TextView) view.findViewById( R.id.textViewSabado);
         fab = (FloatingActionButton) view.findViewById(R.id.fab_add_sabado);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,38 +61,41 @@ public class SFragment extends Fragment implements RealmChangeListener<RealmResu
         });
 
         //Db
-        realm = Realm.getDefaultInstance();
-        clases  = realm.where(Clase.class).equalTo("dia", "SABADO").findAll();
-        clases = clases.sort("horaClase", Sort.ASCENDING);
+        queryToDatabase();
 
-        //Creamos nuestro adaptador personalizado
-        adapter = new ClaseAdapter(getActivity(), clases, R.layout.list_view_clase_item);
+        //Creamos adaptador personalizado
+        adapter = new ClaseAdapter( getActivity(), clases, R.layout.list_view_clase_item);
         //Creamos listView
-        listView = (ListView) view.findViewById(R.id.listViewSabado);
-        //Asociamos adaptador al listView
-        listView.setAdapter(adapter);
+        listView = (ListView) view.findViewById( R.id.listViewSabado );
+        //Asociamos adptador al litview
+        listView.setAdapter( adapter );
 
-        //escuchador de eventos cuando hacemos click a un item del list view (Por terminar, parte del editar o solo ver)
-        listView.setOnItemClickListener(this);
+        //escuchador de eventos cuando hacemos clic a un item
+        listView.setOnItemClickListener( this );
+        clases.addChangeListener(this);
         registerForContextMenu(listView);
-        updateFragmentSabado();
+        update();
         return view;
     }
 
-    @Override
-    public void onChange(RealmResults<Clase> element) {
-        adapter.notifyDataSetChanged();
+    public void queryToDatabase(){
+        //Db
+        realm = Realm.getDefaultInstance();
+        clases = realm.where(Clase.class).equalTo("dia", "SABADO").findAll();
+        clases = clases.sort("horaClase", Sort.ASCENDING);
     }
 
-    public static void updateFragmentSabado(){
-        if(adapter != null){
+
+    public static void updateFragmentSabado() {
+        if( adapter != null){
             adapter.notifyDataSetChanged();
         }
-
         //Db
         realm = Realm.getDefaultInstance();
         //consulta que devuelve todas las clases de la bd
-        clases  = realm.where(Clase.class).equalTo("dia", "SABADO").findAll();
+        clases = realm.where(Clase.class).equalTo("dia", "SABADO").findAll();
+        clases = clases.sort("horaClase", Sort.ASCENDING);
+        adapter.setData(clases);
         //cuestion del textview que dice notas
         if(clases.size() > 0){
             //si hay notas guardadas lo hacemos invisible
@@ -103,11 +106,30 @@ public class SFragment extends Fragment implements RealmChangeListener<RealmResu
         }
     }
 
+    public void update(){
+        if(clases.size() > 0){
+            //si hay notas guardadas lo hacemos invisible
+            dia.setVisibility(View.INVISIBLE);
+        } else {
+            //de lo contrario seguimos mostrando el textview con el mensaje
+            dia.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+    @Override
+    public void onChange(RealmResults<Clase> element) {
+        adapter.notifyDataSetChanged();
+    }
+
+
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        queryToDatabase();
         Intent intent = new Intent(getActivity(), RegistroClase.class);
         intent.putExtra("esNuevo", false);
-        intent.putExtra("dia", dia.getText().toString());
+        intent.putExtra("dia", dia.getText().toString().toUpperCase());
         intent.putExtra("id", clases.get(position).getId());
         startActivity(intent);
     }
@@ -115,22 +137,23 @@ public class SFragment extends Fragment implements RealmChangeListener<RealmResu
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add(Menu.NONE, R.id.editClass, Menu.NONE, "Editar Clase");
-        menu.add(Menu.NONE, R.id.deleteClass, Menu.NONE, "Borrar Clase");
+        menu.add(Menu.NONE, R.id.editClassS, Menu.NONE, "Editar Clase");
+        menu.add(Menu.NONE, R.id.deleteClassS, Menu.NONE, "Borrar Clase");
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item){
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        queryToDatabase();
         switch (item.getItemId()){
-            case R.id.deleteClass:
+            case R.id.deleteClassS:
                 deleteClase(clases.get(info.position));
                 Toast.makeText(getActivity(), "Clase Borrrada", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.editClass:
+            case R.id.editClassS:
                 Intent intent = new Intent(getActivity(), RegistroClase.class);
                 intent.putExtra("esNuevo", false);
-                intent.putExtra("dia", dia.getText().toString());
+                intent.putExtra("dia", dia.getText().toString().toUpperCase());
                 intent.putExtra("id", clases.get(info.position).getId());
                 startActivity(intent);
                 return true;
@@ -144,5 +167,12 @@ public class SFragment extends Fragment implements RealmChangeListener<RealmResu
         clase.deleteFromRealm();
         realm.commitTransaction();
         updateFragmentSabado();
+    }
+
+    @Override
+    public void onDestroyView(){
+        realm.removeAllChangeListeners();
+        realm.close();
+        super.onDestroyView();
     }
 }

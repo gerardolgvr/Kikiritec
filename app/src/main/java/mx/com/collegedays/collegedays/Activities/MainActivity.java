@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private PagerAdapter adapter;
     private FloatingActionButton fab;
-    private String diaSeleccionado = "LUNES";
+    //private String diaSeleccionado = "LUNES";
     private RealmResults<Nota> notas;
 
 
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("VIERNES"));
         tabLayout.addTab(tabLayout.newTab().setText("SABADO"));
         tabLayout.addTab(tabLayout.newTab().setText("DOMINGO"));
+        //tabLayout.addTab(tabLayout.newTab().setText("Clases"));
         tabLayout.addTab(tabLayout.newTab().setText("NOTAS"));
     }
 
@@ -82,8 +84,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 int position = tab.getPosition();
                 viewPager.setCurrentItem(position);
-                diaSeleccionado = tab.getText().toString();
-
+                //diaSeleccionado = tab.getText().toString().toUpperCase();
             }
 
             @Override
@@ -116,6 +117,12 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onDestroy(){
+        realm.close();
+        super.onDestroy();
     }
 
 }

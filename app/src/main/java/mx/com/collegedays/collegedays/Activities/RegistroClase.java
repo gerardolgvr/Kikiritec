@@ -72,8 +72,6 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
         setToolbar();
 
         Toast.makeText(RegistroClase.this, dia, Toast.LENGTH_LONG).show();
-
-
     }
 
     public void setData( Clase clase){
@@ -86,16 +84,13 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
     }
     private void setToolbar(){
         Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
-
         setSupportActionBar( toolbar );
-
-        //getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
     }
 
 
 
     private void setBtnSetHoraOnClickListenner(){
-
         btnSetHora.setOnClickListener( this );
     }
 
@@ -136,34 +131,34 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
 
         realm.copyToRealm( clase );
         realm.commitTransaction();
-        updateCorrectDayFragment();
+        updateFragment(dia);
     }
-
-    private void updateCorrectDayFragment() {
-        switch ( dia.toLowerCase() ){
-            case "domingo":
-                DFragment.updateFragmentDomingo();
-                break;
-            case "lunes":
+    public void updateFragment(String dia){
+        switch (dia){
+            case "LUNES":
                 LFragment.updateFragmentLunes();
                 break;
-            case "martes":
+            case "MARTES":
                 MarFragment.updateFragmentMartes();
                 break;
-            case "miercoles":
+            case "MIERCOLES":
                 MFragment.updateFragmentMiercoles();
                 break;
-            case "jueves":
+            case "JUEVES":
                 JFragment.updateFragmentJueves();
                 break;
-            case "viernes":
+            case "VIERNES":
                 VFragment.updateFragmentViernes();
                 break;
-            case "sabado":
+            case "SABADO":
                 SFragment.updateFragmentSabado();
+                break;
+            case "DOMINGO":
+                DFragment.updateFragmentDomingo();
                 break;
         }
     }
+
 
     @Override
     public void onClick(View v) {
@@ -213,8 +208,7 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
         clase.setDia( dia );
         realm.copyToRealmOrUpdate(clase);
         realm.commitTransaction();
-        updateCorrectDayFragment();
+        updateFragment(dia);
     }
-
 
 }
