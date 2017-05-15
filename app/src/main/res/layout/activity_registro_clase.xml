@@ -77,7 +77,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/txtAula"
-                android:hint="Duración de la clase"
+                android:hint="Duración de la clase en hrs"
                 android:inputType="numberDecimal"
                 android:textAlignment="center"
                 android:textSize="20sp" />

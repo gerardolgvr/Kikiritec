@@ -69,7 +69,8 @@ public class ClaseAdapter extends BaseAdapter{
 
         vh.nombreClase.setText(clase.getNombreDeClase());
         vh.horaClase.setText(clase.getHoraClase());
-        vh.duracion.setText(clase.getDuracion());
+        String msg = (Integer.parseInt(clase.getDuracion()) > 1)? clase.getDuracion()+" horas" : clase.getDuracion()+" hora";
+        vh.duracion.setText(msg);
 
         return convertView;
     }

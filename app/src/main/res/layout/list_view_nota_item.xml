@@ -9,12 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="22sp"
-        android:layout_margin="7dp"/>
+        android:layout_margin="7dp"
+        android:textColor="#000000"/>
     <TextView
         android:id="@+id/textViewNotaContenido"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="7dp"/>
+        android:layout_margin="7dp"
+        android:textColor="#000000"/>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -27,7 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_weight=".5"
             android:paddingTop="5dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textColor="#000000"/>
 
         <TextView
             android:id="@+id/textViewNotaFecha"
@@ -35,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:paddingTop="5dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textColor="#000000"/>
     </LinearLayout>
 </LinearLayout>

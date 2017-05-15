@@ -22,6 +22,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import mx.com.collegedays.collegedays.Adapters.PagerAdapter;
 import mx.com.collegedays.collegedays.Fragments.NotasFragment;
+import mx.com.collegedays.collegedays.Models.Clase;
 import mx.com.collegedays.collegedays.Models.Nota;
 import mx.com.collegedays.collegedays.R;
 
@@ -110,8 +111,17 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.deletaAllNotas:
                 realm.beginTransaction();
+                realm.delete(Nota.class);
+                realm.commitTransaction();
+                return true;
+            case R.id.deletaAllClases:
+                realm.beginTransaction();
+                realm.delete(Clase.class);
+                realm.commitTransaction();
+                return true;
+            case R.id.deletaAll:
+                realm.beginTransaction();
                 realm.deleteAll();
-                NotasFragment.updateFragmentNotas();
                 realm.commitTransaction();
                 return true;
             default:

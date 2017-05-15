@@ -4,5 +4,11 @@
     <item
         android:id="@+id/deletaAllNotas"
         android:title="Borrar Todas Las Notas"/>
+    <item
+        android:id="@+id/deletaAllClases"
+        android:title="Borrar Todas Las Clases"/>
+    <item
+        android:id="@+id/deletaAll"
+        android:title="Borrar Todo"/>
 
 </menu>

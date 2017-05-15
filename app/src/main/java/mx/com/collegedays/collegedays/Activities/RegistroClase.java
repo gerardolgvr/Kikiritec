@@ -71,7 +71,7 @@ public class RegistroClase extends AppCompatActivity implements View.OnClickList
         setBtnSetHoraOnClickListenner();
         setToolbar();
 
-        Toast.makeText(RegistroClase.this, dia, Toast.LENGTH_LONG).show();
+        //Toast.makeText(RegistroClase.this, dia, Toast.LENGTH_LONG).show();
     }
 
     public void setData( Clase clase){
